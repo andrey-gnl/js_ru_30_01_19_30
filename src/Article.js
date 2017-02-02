@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import CommentsList from './CommentsList'
 
 export default class Article extends Component {
     state = {
@@ -30,6 +31,7 @@ export default class Article extends Component {
         return (
             <section>
                 {this.props.article.text}
+                <CommentsList comments={this.props.article.comments} />
             </section>
         )
     }
