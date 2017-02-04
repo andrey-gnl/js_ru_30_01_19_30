@@ -14,31 +14,41 @@ export default class Article extends Component {
     }
 */
 
-    render() {
-        const {article} = this.props
-        console.log('---', 123)
-        return (
-            <div>
-                <h3 onClick={this.handleClick}>{article.title}</h3>
-                {this.getBody()}
-            </div>
-        )
-    }
-
     getBody() {
         if (!this.state.isOpen) return null
 
         return (
             <section>
                 {this.props.article.text}
-                <CommentsList comments={this.props.article.comments} />
+
+                {this.getComments()}
             </section>
         )
     }
+
+    getComments() {
+        let commentsExists = this.props.article.comments && this.props.article.comments.length > 0;
+
+        if (commentsExists) return <CommentsList comments={this.props.article.comments} />
+
+        return (<div style={{marginTop: '20px'}}><i>no comments</i></div>)
+
+	}
 
     handleClick = (ev) => {
         this.setState({
             isOpen: !this.state.isOpen
         })
     }
+
+	render() {
+		const {article} = this.props
+		console.log('---', 123)
+		return (
+            <div>
+                <h3 onClick={this.handleClick}>{article.title}</h3>
+				{this.getBody()}
+            </div>
+		)
+	}
 }

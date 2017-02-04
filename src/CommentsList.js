@@ -7,7 +7,7 @@ export default class CommentsList extends React.Component {
 		this.comments = props.comments.map((comment) => {
 			return (
 				<li key={comment.id}>
-					<h3>Author: {comment.user}</h3>
+					<h4>Author: {comment.user}</h4>
 					{comment.text}
 				</li>
 			)
@@ -16,12 +16,9 @@ export default class CommentsList extends React.Component {
 		this.amount = this.comments.length;
 
 		this.state = {
-			isShow: false,
-			btnText: function() {
-				return this.isShow ? 'Hide comments' : 'Show comments'
-			}
-
+			isShow: false
 		}
+
 	}
 
 	HandleClick() {
@@ -36,14 +33,18 @@ export default class CommentsList extends React.Component {
 		return (<ul> {this.comments} </ul>);
 	}
 
+	getBtnText() {
+		return this.state.isShow ? 'Hide comments' : 'Show comments';
+	}
+
 	render() {
 
+		const comments = this.getComments();
+
 		return (
-			<div>
-				<button onClick={this.HandleClick.bind(this)}>{this.state.btnText()} ({this.amount})</button>
-
-				{this.getComments()}
-
+			<div style={{marginTop: '20px'}}>
+				<button onClick={this.HandleClick.bind(this)}>{this.getBtnText()} ({this.amount})</button>
+				{comments}
 			</div>
 		)
 
