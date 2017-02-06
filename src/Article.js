@@ -27,6 +27,7 @@ export default class Article extends Component {
     }
 
     getComments() {
+    //Я б эту проверку спрятал в CommentList
         let commentsExists = this.props.article.comments && this.props.article.comments.length > 0;
 
         if (commentsExists) return <CommentsList comments={this.props.article.comments} />
