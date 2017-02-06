@@ -3,7 +3,7 @@ import React from 'react'
 export default class CommentsList extends React.Component {
 	constructor(props) {
 		super();
-
+		//вот это прям очень плохо. Оно должно жить в render(), а не в кострукторе - оно ведь никогда не поменяется
 		this.comments = props.comments.map((comment) => {
 			return (
 				<li key={comment.id}>
