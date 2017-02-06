@@ -21,18 +21,21 @@ export default class Article extends Component {
             <section>
                 {this.props.article.text}
 
-                {this.getComments()}
+                {/*{this.getComments()}*/}
+				<CommentsList comments={this.props.article.comments} />
             </section>
         )
     }
 
     getComments() {
     //Я б эту проверку спрятал в CommentList
-        let commentsExists = this.props.article.comments && this.props.article.comments.length > 0;
+    //     let commentsExists = this.props.article.comments && this.props.article.comments.length > 0;
 
-        if (commentsExists) return <CommentsList comments={this.props.article.comments} />
+        // if (commentsExists) return <CommentsList comments={this.props.article.comments} />
 
-        return (<div style={{marginTop: '20px'}}><i>no comments</i></div>)
+		{/*<CommentsList comments={this.props.article.comments} />*/}
+
+        {/*return (<div style={{marginTop: '20px'}}><i>no comments</i></div>)*/}
 
 	}
 
