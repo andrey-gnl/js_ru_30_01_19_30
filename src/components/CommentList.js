@@ -1,10 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 
 class CommentList extends Component {
+
     static defaultProps = {
         comments: []
     }
+
+    //? если задаем дефолтное значение то .isRequired писать уже не обязательно, верно? тк ругаться все равно не будет, если не передать
+	static propTypes= {
+		comments: PropTypes.array
+	}
+
     componentDidMount() {
         console.log('---', 'mounted')
     }

@@ -1,7 +1,11 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Article from './Article'
 
 export default class ArticleList extends Component {
+
+    static propTypes = {
+        articles: PropTypes.array
+    }
 
     state = {
         openArticleId: null
