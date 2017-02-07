@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
+import toggleOpen from '../decorators/toggleOpen'
 
 class CommentList extends Component {
 
@@ -17,7 +18,7 @@ class CommentList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('---', this.props, nextProps)
+        // console.log('---', this.props, nextProps)
     }
 
 
@@ -25,22 +26,10 @@ class CommentList extends Component {
         console.log('---', 'unmounting')
     }
 
-    state = {
-        isOpen: false
-    }
 
-    render() {
-        const actionText = this.state.isOpen ? 'hide' : 'show'
-        return (
-            <div>
-                <a href="#" onClick={this.toggleOpen}>{actionText} comments</a>
-                {this.getBody()}
-            </div>
-        )
-    }
 
     getBody() {
-        if (!this.state.isOpen) return null
+        if (!this.props.isOpen) return null
 
         const {comments} = this.props
         if (!comments.length) return <h3>No comments yet</h3>
@@ -49,12 +38,15 @@ class CommentList extends Component {
         return <ul>{commentItems}</ul>
     }
 
-    toggleOpen = ev => {
-        ev.preventDefault()
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
+	render() {
+		const actionText = this.props.isOpen ? 'hide' : 'show'
+		return (
+            <div>
+                <a href="#" onClick={this.props.toggleOpen}>{actionText} comments</a>
+				{this.getBody()}
+            </div>
+		)
+	}
 }
 
-export default CommentList
+export default toggleOpen(CommentList)

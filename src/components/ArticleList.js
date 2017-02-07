@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Article from './Article'
+import toggleOpen from '../decorators/toggleOpen'
 
 export default class ArticleList extends Component {
 
@@ -38,3 +39,5 @@ export default class ArticleList extends Component {
 ArticleList.defaultProps = {
     articles: []
 }
+
+// export default toggleOpen(ArticleList)
