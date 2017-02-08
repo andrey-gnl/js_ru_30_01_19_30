@@ -10,7 +10,9 @@ class CommentList extends Component {
 
     //? если задаем дефолтное значение то .isRequired писать уже не обязательно, верно? тк ругаться все равно не будет, если не передать
 	static propTypes= {
-		comments: PropTypes.array
+		comments: PropTypes.array.isRequired,
+		isOpen: PropTypes.bool,
+		toggleOpen: PropTypes.func
 	}
 
     componentDidMount() {
@@ -21,12 +23,9 @@ class CommentList extends Component {
         // console.log('---', this.props, nextProps)
     }
 
-
     componentWillUnmount() {
         console.log('---', 'unmounting')
     }
-
-
 
     getBody() {
         if (!this.props.isOpen) return null
@@ -39,7 +38,7 @@ class CommentList extends Component {
     }
 
 	render() {
-		const actionText = this.props.isOpen ? 'hide' : 'show'
+		const actionText = this.props.isOpen ? 'hide' : 'show';
 		return (
             <div>
                 <a href="#" onClick={this.props.toggleOpen}>{actionText} comments</a>
