@@ -12,8 +12,9 @@ class CommentList extends Component {
 	static propTypes= {
 		comments: PropTypes.array.isRequired,
 		isOpen: PropTypes.bool,
+		// toggleOpen: PropTypes.func.isRequired - почему при isRequired ошибка в консоле ?
 		toggleOpen: PropTypes.func
-	}
+	};
 
     componentDidMount() {
         console.log('---', 'mounted')

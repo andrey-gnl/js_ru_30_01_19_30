@@ -5,13 +5,15 @@ import accordion from '../decorators/accordion'
 class ArticleList extends Component {
 
     static propTypes = {
-        articles: PropTypes.array.isRequired,
+        articles: PropTypes.arrayOf(PropTypes.shape).isRequired,
+		//? toggleOpenBlock: PropTypes.func.isRequired - почему при isRequired ошибка в консоле ? http://take.ms/6fcXE
 		toggleOpenBlock: PropTypes.func,
-		openBlockId: PropTypes.string
-    }
+		openBlockId: PropTypes.oneOfType([ PropTypes.string, PropTypes.number])
+    };
 
     render() {
-        const {articles, toggleOpenBlock} = this.props
+        const {articles, toggleOpenBlock} = this.props;
+
         const articleElements = articles.map((article) => <li key={article.id}>
             <Article
                 article={article}
@@ -26,7 +28,6 @@ class ArticleList extends Component {
     }
 
 }
-
 
 ArticleList.defaultProps = {
     articles: []
