@@ -9,6 +9,7 @@ import React, {Component} from 'react'
 
 
 export default (Component) => {
+	//вот здесь ты какой Component наследовать хотел?
 	class Accordion extends Component {
 		state = {
 			openBlockId: null
