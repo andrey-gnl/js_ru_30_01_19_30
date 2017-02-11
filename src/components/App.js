@@ -3,6 +3,9 @@ import ArticleList from './ArticleList'
 import Chart from './Chart'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
+import DayPicker from './DayPicker/index'
+
+import 'react-day-picker/lib/style.css'
 
 class App extends Component {
     state = {
@@ -20,8 +23,12 @@ class App extends Component {
             <div>
                 User: <input type="text" value={this.state.user} onChange={this.handleUserChange}/>
                 <Select options = {options} onChange={this.handleSelectChange} value={this.state.selection} multi/>
+                <DayPicker/>
+
+
                 <ArticleList articles={articles}/>
                 <Chart articles={articles}/>
+
             </div>
         )
     }
