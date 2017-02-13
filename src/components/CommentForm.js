@@ -21,6 +21,7 @@ export default class CommentsForm extends Component {
 	}
 
 	handleChange = (e) => {
+		//ок, но зделал бы уже const {name, value} = e.target
 		const target = e.target;
 		const val = e.target.value;
 		const name = target.name;
