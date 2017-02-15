@@ -4,6 +4,7 @@ import store from '../store'
 import accordion from '../decorators/accordion'
 
 class ArticleList extends Component {
+
     render() {
         const {articles, toggleOpenItem, isOpenItem} = this.props;
 
@@ -21,16 +22,30 @@ class ArticleList extends Component {
 		const filterSelect = store.getState().filterSelect.map((filter) => {
 			return filter.value;
 		});
+
+		const filterDate = store.getState().filterDates;
 		
 		let filteredArticles = articles;
 
+		if(filterDate.from) {
+			filteredArticles = articles.filter((article) => {
+			    return Date.parse(article.date) > Date.parse(filterDate.from)
+            })
+        }
+
+		if(filterDate.to) {
+			filteredArticles = filteredArticles.filter((article) => {
+				return Date.parse(article.date) < Date.parse(filterDate.to)
+			})
+		}
+
 		if (filterSelect.length) {
 
-			 filteredArticles = articles.filter((article) => {
+			filteredArticles = filteredArticles.filter((article) => {
 				return filterSelect.includes(article.id);
 			});
 
-        }
+		}
 
 		const articleElements = filteredArticles.map((article) => <li key={article.id}>
             <Article
@@ -38,8 +53,9 @@ class ArticleList extends Component {
                 isOpen={isOpenItem(article.id)}
                 toggleOpen={toggleOpenItem(article.id)}/>
         </li>);
-
+		
 		return articleElements;
+
     }
 }
 export default accordion(ArticleList)

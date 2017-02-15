@@ -12,7 +12,8 @@ class App extends Component {
     }
 
     render() {
-        const {articles, selection} = this.props
+        const {articles, selection, dates, visibleArticles} = this.props;
+
         const options = articles.map(article => ({
             label: article.title,
             value: article.id
@@ -23,10 +24,10 @@ class App extends Component {
                 <Counter/>
                 User: <input type="text" value={this.state.user} onChange={this.handleUserChange}/>
 
-                <Select options = {options} selection = {selection}/>
+                <Select options = {options} selection = {selection} />
 
-                <DateRange />
-                <ArticleList articles={articles}/>
+                <DateRange from={dates.from} to={dates.to}/>
+                <ArticleList articles={articles}  updateFilters={this.updateFilters}/>
                 <Chart articles={articles}/>
             </div>
         )
@@ -39,6 +40,7 @@ class App extends Component {
             })
         }
     }
+
 }
 
 App.propTypes = {
@@ -47,5 +49,6 @@ App.propTypes = {
 
 export default connect(state => ({
     articles: state.articles,
-    selection: state.filterSelect
+    selection: state.filterSelect,
+    dates: state.filterDates
 }))(App)
