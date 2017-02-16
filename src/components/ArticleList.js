@@ -18,7 +18,7 @@ class ArticleList extends Component {
     getArticles = () => {
 
 		const {articles, toggleOpenItem, isOpenItem} = this.props;
-
+		//очень плохо. если нужно что-то из стора - используй connect, а не бери прямо из него
 		const filterSelect = store.getState().filterSelect.map((filter) => {
 			return filter.value;
 		});
