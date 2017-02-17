@@ -48,6 +48,7 @@ App.propTypes = {
 }
 
 export default connect(state => ({
+    //а где сама фильтрация?
     articles: state.articles,
     selection: state.filterSelect,
     dates: state.filterDates
