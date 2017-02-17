@@ -29,7 +29,7 @@ class ArticleList extends Component {
 
 		//filter from data range
 		if(filterDate.from) {
-			filteredArticles = articles.filter((article) => {
+			filteredArticles = filteredArticles.filter((article) => {
 			    return Date.parse(article.date) > Date.parse(filterDate.from)
             })
         }
