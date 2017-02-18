@@ -9,7 +9,7 @@ export function mapToArr(map) {
 }
 
 export function getRandomID(existingIDs = []) {
-    let ID = Math.floor(10000 + Math.random() * 30000);
+    let ID = 0;
 
 	while (existingIDs.includes(ID.toString())) {
 
