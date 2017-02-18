@@ -21,23 +21,20 @@ export default (state = defaultState, action) => {
 			}
 
         case ADD_COMMENT:
-			let m = mapToArr(payload.comment);
-			let withNewComment = mapToArr(state.entities);
+			let normilizedArticles = mapToArr(state.entities);
 
-			let x = withNewComment.map(article => {
+			let withNewComment = normilizedArticles.map(article => {
 				if (article.id == payload.postID) {
-					article.comments.push(m[0].id);
+					article.comments.push(payload.comment.id);
 				}
 
 				return article;
 			});
 
-
 			return {
 				...state,
-				entities: arrayToMap(x)
+				entities: arrayToMap(withNewComment)
 			}
-			// return state
 
 		case LOAD_ALL_ARTICLES + START:
             return {...state, isLoading: true}

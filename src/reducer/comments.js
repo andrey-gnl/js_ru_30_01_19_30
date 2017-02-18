@@ -11,12 +11,13 @@ export default (state = defaultState, action) => {
     
     switch (type) {
         case ADD_COMMENT:
-            // console.warn('xxxxxxxxxxx');
-            let newObj = Object.assign({}, state, payload.comment)
-            return newObj;
-            // return state
+
+			let newComment= {
+				[payload.comment.id]: payload.comment
+			};
+
+            return Object.assign({}, state, newComment)
     }
-	// console.warn('xxxxxxxxxxx');
 
 
 	return state

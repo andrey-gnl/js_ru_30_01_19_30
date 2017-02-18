@@ -2,7 +2,6 @@ import $ from 'jquery'
 import {START, SUCCESS, FAIL} from '../constants'
 
 export default store => next => action => {
-    console.error('joke 2');
     if (!action.callAPI) return next(action)
     const {callAPI, type, ...rest} = action
 

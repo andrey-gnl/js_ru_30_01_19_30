@@ -1,19 +1,15 @@
 import {ADD_COMMENT} from '../constants'
+import {getRandomID} from '../utils'
 
 export default store => next => action => {
-	console.error('joke 3');
 	if (action.type != ADD_COMMENT) return next(action);
 
-	const {payload: {comment}, ...rest} = action;
-	comment.id = 9999;
-	let newComment= {
-		[comment.id]: action.payload.comment
-	};
+	const {payload: {comment}} = action;
 
-	// console.log('****newComment', payload);
-	let obj = {type: action.type, payload: {comment: newComment, postID: action.payload.postID}};
+	let ID = getRandomID(Object.keys(store.getState().comments));
 
+	comment.id = ID;
 
-	next(obj);
+	next(action);
 
 }

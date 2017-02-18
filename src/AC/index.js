@@ -69,8 +69,6 @@ export function loadAllArticlesThunk() {
 
 
 export function addComment(comment, postID) {
-	console.error('joke');
-
 	return {
 		type: ADD_COMMENT,
 		payload: { comment, postID }
