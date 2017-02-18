@@ -13,6 +13,7 @@ class ArticleList extends Component {
             return <Loader/>
         }
 
+
         const articleElements = articles.map((article) => <li key={article.id}>
             <Article
                 article={article}
@@ -33,6 +34,7 @@ export default connect(
         const articles = mapToArr(state.articles.entities)
         const {selected} = filters
         const { from, to } = filters.dateRange
+
 
         const filteredArticles = articles.filter(article => {
             const published = Date.parse(article.date)

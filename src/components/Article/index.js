@@ -4,7 +4,7 @@ import CommentList from '../CommentList'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import {connect} from 'react-redux'
-import {deleteArticle} from '../../AC'
+import {deleteArticle, getArticleText} from '../../AC'
 
 class Article extends Component {
     static propTypes = {
@@ -27,10 +27,11 @@ class Article extends Component {
         const {article, toggleOpen} = this.props
         return (
             <div ref = {this.getContainerRef}>
-                <h3 onClick={toggleOpen}>
-                    {article.title}
+                <h3 >
+                    <span onClick={() => {this.getText(); toggleOpen();}}>{article.title}</span>
                     <a href="#" onClick = {this.handleDelete}>Delete me</a>
                 </h3>
+
                 <CSSTransition
                     transitionName="article-body"
                     transitionEnterTimeout={500}
@@ -46,6 +47,10 @@ class Article extends Component {
         this.container = ref
     }
 
+    getText = () => {
+		this.props.getArticleText(this.props.article.id);
+    }
+
     getCommentsRef = (ref) => {
         this.commentList = ref
         if (!ref) return null
@@ -54,7 +59,6 @@ class Article extends Component {
 
     getBody() {
         const {isOpen, article: {text, comments, id}} = this.props
-
         if (!isOpen) return null
 
         return (
@@ -71,4 +75,4 @@ class Article extends Component {
     }
 }
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(null, { deleteArticle, getArticleText })(Article)

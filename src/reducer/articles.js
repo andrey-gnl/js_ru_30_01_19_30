@@ -1,4 +1,11 @@
-import {DELETE_ARTICLE, LOAD_ALL_ARTICLES, FAIL, SUCCESS, START, ADD_COMMENT} from '../constants'
+import {
+    DELETE_ARTICLE,
+    LOAD_ALL_ARTICLES,
+    FAIL,
+    SUCCESS,
+    START,
+    ADD_COMMENT,
+    LOAD_ARTICLE_TEXT} from '../constants'
 import {arrayToMap, mapToArr} from '../utils'
 
 const defaultState = {
@@ -9,10 +16,11 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     const {type, payload } = action
-    
+    const normilizedArticles = mapToArr(state.entities);
+
     switch (type) {
         case DELETE_ARTICLE:
-            //todo fix me
+            //fix me - as you wish...
             let filtered = mapToArr(state.entities).filter(article => article.id !== payload.id);
 
             return {
@@ -20,14 +28,31 @@ export default (state = defaultState, action) => {
 				entities: arrayToMap(filtered)
 			}
 
+        case LOAD_ARTICLE_TEXT:
+
+			let withText = normilizedArticles.map(article => {
+
+				if (article.id == action.postID) {
+					return Object.assign({}, article, {text: action.response.text})
+				}
+
+				return article;
+
+			});
+			
+			console.log(normilizedArticles);
+
+			return {
+				...state,
+				entities: arrayToMap(withText)
+			}
+
         case ADD_COMMENT:
-			let normilizedArticles = mapToArr(state.entities);
 
 			let withNewComment = normilizedArticles.map(article => {
 				if (article.id == payload.postID) {
-					article.comments.push(payload.comment.id);
+					return Object.assign({}, article, {comments: [...article.comments, payload.comment.id]})
 				}
-
 				return article;
 			});
 

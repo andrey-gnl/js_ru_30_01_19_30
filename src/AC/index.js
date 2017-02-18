@@ -7,7 +7,8 @@ import {
     START,
     SUCCESS,
     FAIL,
-    ADD_COMMENT} from '../constants'
+    ADD_COMMENT,
+	LOAD_ARTICLE_TEXT} from '../constants'
 import $ from 'jquery'
 
 
@@ -72,5 +73,22 @@ export function addComment(comment, postID) {
 	return {
 		type: ADD_COMMENT,
 		payload: { comment, postID }
+	}
+}
+
+export function getArticleText(id) {
+	return (dispatch) => {
+
+		setTimeout(() => {
+
+			$.get('/api/article/' + id)
+				.done(response => dispatch({
+					type: LOAD_ARTICLE_TEXT,
+					response,
+                    postID: id
+				}))
+
+		}, 1000)
+
 	}
 }
