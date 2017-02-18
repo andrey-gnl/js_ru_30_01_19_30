@@ -21,7 +21,7 @@ export default (state = defaultState, action) => {
     switch (type) {
         case DELETE_ARTICLE:
             //fix me - as you wish...
-            let filtered = mapToArr(state.entities).filter(article => article.id !== payload.id);
+            let filtered = normilizedArticles.filter(article => article.id !== payload.id);
 
             return {
                 ...state,
