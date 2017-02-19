@@ -28,38 +28,28 @@ export default (state = defaultState, action) => {
 				entities: arrayToMap(filtered)
 			}
 
-        case LOAD_ARTICLE_TEXT:
-
-			let withText = normilizedArticles.map(article => {
-
-				if (article.id == action.postID) {
-					return Object.assign({}, article, {text: action.response.text})
-				}
-
-				return article;
-
-			});
-			
-			console.log(normilizedArticles);
+        case LOAD_ARTICLE_TEXT: {
+			const {response: {text}, postID} = action;
+			let withText = {...state}.entities[postID];
+			withText.text = text;
 
 			return {
 				...state,
-				entities: arrayToMap(withText)
+				withText
 			}
+		}
 
-        case ADD_COMMENT:
+        case ADD_COMMENT: {
 
-			let withNewComment = normilizedArticles.map(article => {
-				if (article.id == payload.postID) {
-					return Object.assign({}, article, {comments: [...article.comments, payload.comment.id]})
-				}
-				return article;
-			});
+			const {comment, postID} = payload;
+
+            let withNewComment = {...state}.entities[postID].comments.push(comment.id);
 
 			return {
 				...state,
-				entities: arrayToMap(withNewComment)
+				withNewComment
 			}
+		}
 
 		case LOAD_ALL_ARTICLES + START:
             return {...state, isLoading: true}

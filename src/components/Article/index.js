@@ -48,6 +48,7 @@ class Article extends Component {
     }
 
     getText = () => {
+        if (this.props.article.text) return;
 		this.props.getArticleText(this.props.article.id);
     }
 
