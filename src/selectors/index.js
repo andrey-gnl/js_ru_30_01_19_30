@@ -19,6 +19,6 @@ export const filteredArticlesSelector = createSelector(articlesGetter, filtersGe
 })
 
 export const articleSelectorFactory = () => createSelector(articlesGetter, idGetter, (entities, id) => {
-    console.log('---', 'article selector', id)
+    // console.log('---', 'article selector', id)
     return entities.get(id)
 })

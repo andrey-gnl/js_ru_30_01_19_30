@@ -1,34 +1,42 @@
 import React, { Component, PropTypes } from 'react'
+import {connect} from 'react-redux'
 import Comment from './Comment'
 import NewCommentForm from './NewCommentForm'
+import {loadComments} from '../AC'
+import Loader from './Loader'
 
 class CommentList extends Component {
     static propTypes = {
         article: PropTypes.object.isRequired
     }
 
-    state = {
-        isOpen: false
-    }
-
     render() {
-        const actionText = this.state.isOpen ? 'hide' : 'show'
+        const actionText = this.props.isOpen ? 'hide' : 'show';
         return (
             <div>
-                <a href="#" onClick={this.toggleOpen}>{actionText} comments</a>
+                <a href="#" onClick={this.props.toggleOpenComments}>{actionText} comments</a>
                 {this.getBody()}
             </div>
         )
     }
 
-    getBody() {
-        if (!this.state.isOpen) return null
+	componentWillReceiveProps({ isOpen, article, loadComments}) {
+		if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) loadComments(article.id);
+	}
 
-        const {comments = [], id} = this.props.article
+    getBody() {
+        
+        if (!this.props.isOpen) return null;
+
+		const {isOpen, article} = this.props
+		if (!article.commentsLoaded) return <Loader />
+
+        const {comments = [], id} = this.props.article;
+
         if (!comments.length) return (<div>
             <h3>No comments yet</h3>
             <NewCommentForm articleId={id}/>
-        </div>)
+        </div>);
 
         const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
         return <div>
@@ -37,12 +45,10 @@ class CommentList extends Component {
         </div>
     }
 
-    toggleOpen = ev => {
-        ev.preventDefault()
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
 }
 
-export default CommentList
+export default connect(null, {loadComments})(CommentList)
+
+CommentList.defaultProps = {
+	comments: []
+};
