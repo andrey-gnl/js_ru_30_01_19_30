@@ -17,12 +17,14 @@ export default (state = defaultState, action) => {
 
     switch (type) {
         case LOAD_COMMENTS + SUCCESS:
-			return state.set('entities', arrayToMap(response, commentModel));
+			return state.updateIn(['entities'],  entities => {
+				return entities.merge(arrayToMap(response, commentModel))
+			});
 
 		case ADD_COMMENT:
 			return state.updateIn(['entities'], entities => {
 				return entities.set(randomId, new commentModel({...payload.comment, id: randomId}))
-			} )
+			});
     }
 
     return state
