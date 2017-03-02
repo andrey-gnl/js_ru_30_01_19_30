@@ -8,6 +8,8 @@ import ArticlePage from './routeHandlers/ArticlePage'
 import NotFoundPage from './routeHandlers/NotFoundPage'
 import AuthorizedOnlyPage from './routeHandlers/AuthorizedOnlyPage'
 import ErrorPage from './routeHandlers/ErrorPage'
+import CommentsPaginationList from './routeHandlers/CommentsPaginationList'
+import CommentsPagination from './routeHandlers/CommentsPagination'
 import store from './store'
 
 export default (
@@ -27,6 +29,11 @@ export default (
                 }
             />
             <Route path="error" component={ErrorPage} />
+
+            <Route path="comments" component={CommentsPagination}>
+                <Route path=":page" component={CommentsPaginationList} />
+            </Route>
+
             <Route path="*" component={NotFoundPage} />
         </Route>
     </Router>

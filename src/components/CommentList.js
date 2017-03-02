@@ -35,6 +35,7 @@ class CommentList extends Component {
 
         const {commentsLoaded, comments = [], id} = this.props.article
 
+        // if(!this.props.comments.size) return;
         if (!commentsLoaded) {
             return <Loader />
         }
@@ -44,7 +45,8 @@ class CommentList extends Component {
             <NewCommentForm articleId={id}/>
         </div>)
 
-        const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
+        const commentItems = comments.map(id => <li key={id}><Comment id={id} commentList={this.props.comments}/></li>)
+
         return <div>
             <ul>{commentItems}</ul>
             <NewCommentForm articleId={id} />
@@ -59,4 +61,8 @@ class CommentList extends Component {
     }
 }
 
-export default connect(null, {loadArticleComments})(CommentList)
+export default connect((state) => {
+    return {
+        comments: state.comments.entities
+    }
+}, {loadArticleComments})(CommentList)
